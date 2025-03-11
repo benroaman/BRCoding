@@ -7,6 +7,10 @@
 
 import Foundation
 
+// MARK: Non Nullable Bool Default False
+/// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to false.
+/// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
+/// - Example: @BRNonNullableServerBoolDefaultFalse private(set) var someBool: Bool
 @propertyWrapper
 struct BRNonNullableServerBoolDefaultFalse {
     var wrappedValue: Bool
@@ -43,6 +47,10 @@ extension KeyedDecodingContainer {
     }
 }
 
+// MARK: Non Nullable Bool Default False
+/// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to true.
+/// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
+/// - Example: @BRNonNullableServerBoolDefaultTrue private(set) var someBool: Bool
 @propertyWrapper
 struct BRNonNullableServerBoolDefaultTrue {
     var wrappedValue: Bool
@@ -79,6 +87,11 @@ extension KeyedDecodingContainer {
     }
 }
 
+// MARK: Optional Bool
+/// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, or otherwise fails to decode, it will default to nil without causing the decoding of the parent object to fail.
+/// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
+/// - If wrappedValue is nil, encodes as a null literal, e.g. { "someBool": null }
+/// - Example: @BROptionalServerBool private(set) var someBool: Bool?
 @propertyWrapper
 struct BROptionalServerBool {
     var wrappedValue: Bool?
@@ -121,6 +134,10 @@ extension KeyedDecodingContainer {
     }
 }
 
+// MARK: Required Bool
+/// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will throw an error potentially causing decoding of the parent object to fail.
+/// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
+/// - Example: @BRRequiredServerBool private(set) var someBool: Bool
 @propertyWrapper
 struct BRRequiredServerBool {
     var wrappedValue: Bool
@@ -134,7 +151,7 @@ extension BRRequiredServerBool: Codable {
             switch intValue {
             case 0: self.wrappedValue = false
             case 1: self.wrappedValue = true
-            default: throw DecodingError.valueNotFound(Bool.self, .init(codingPath: decoder.codingPath, debugDescription: "Int Representation not valid Bool"))
+            default: throw DecodingError.typeMismatch(Bool.self, .init(codingPath: decoder.codingPath, debugDescription: "Int Representation not valid Bool"))
             }
         } else if let strValue = try? (try? decoder.singleValueContainer())?.decode(String.self) {
             if let boolValue = Bool(strValue) {
@@ -143,7 +160,7 @@ extension BRRequiredServerBool: Codable {
                 switch strValue {
                 case "0": self.wrappedValue = false
                 case "1": self.wrappedValue = true
-                default: throw DecodingError.valueNotFound(Bool.self, .init(codingPath: decoder.codingPath, debugDescription: "String Representation not valid Bool"))
+                default: throw DecodingError.typeMismatch(Bool.self, .init(codingPath: decoder.codingPath, debugDescription: "String Representation not valid Bool"))
                 }
             }
         } else {
@@ -157,6 +174,11 @@ extension BRRequiredServerBool: Codable {
     }
 }
 
+// MARK: Optional Null Omitting Bool
+/// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to nil without causing the decoding of the parent object to fail. It will not encode if the wrappedValue is nil.
+/// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
+/// - If wrappedValue is nil, does not encode
+/// - Example: @BROptionalNullOmittingServerBool private(set) var someBool: Bool?
 @propertyWrapper
 struct BROptionalNullOmittingServerBool {
     var wrappedValue: Bool?
