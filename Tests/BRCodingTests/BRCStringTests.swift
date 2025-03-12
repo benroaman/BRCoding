@@ -21,9 +21,9 @@ final class BRCStringTests: XCTestCase {
     private lazy var emptyStringJSON = #"{"someString":"\#(emptyString)"}"#
     private lazy var emptyStringJSONData = emptyStringJSON.data(using: .utf8)!
     
-    let whitespaceString = "   "
-    private lazy var whitespaceStringJSON = #"{"someString":"\#(whitespaceString)"}"#
-    private lazy var whitespaceStringJSONData = whitespaceStringJSON.data(using: .utf8)!
+    let whitespaceString = "  \n "
+    private lazy var whitespaceStringJSONData = (try? encoder.encode(["someString": whitespaceString]))!
+    private lazy var whitespaceStringJSON = String(data: whitespaceStringJSONData, encoding: .utf8)!
     
     private let nullLiteralJSON = #"{"someString":null}"#
     private lazy var nullLiteralJSONData = nullLiteralJSON.data(using: .utf8)!
@@ -55,6 +55,16 @@ final class BRCStringTests: XCTestCase {
             }
         } else {
             XCTFail("Failed to decode valid string")
+        }
+        
+        struct TEST: Codable {
+            let someString: String
+        }
+        
+        if let testypoo = try? decoder.decode(TEST.self, from: whitespaceStringJSONData) {
+            XCTAssert(testypoo.someString == whitespaceString, "Whitespace string decoded Incorrectly")
+        } else {
+            XCTFail("Failed to decode whitespace string")
         }
         
         if let emptyStringTestObject = try? decoder.decode(OptionalString.self, from: emptyStringJSONData) {
