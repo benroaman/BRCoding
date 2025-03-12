@@ -1,5 +1,5 @@
 //
-//  BRServerBool.swift
+//  BRCBool.swift
 //
 //
 //  Created by Ben Roaman on 3/9/25.
@@ -10,19 +10,26 @@ import Foundation
 // MARK: Non Nullable Bool Default False
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to false.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
-/// - Example: @BRNonNullableServerBoolDefaultFalse private(set) var someBool: Bool
+/// - Example: @BRCBoolNonNullableDefaultFalse private(set) var someBool: Bool
 @propertyWrapper
-struct BRNonNullableServerBoolDefaultFalse {
-    var wrappedValue: Bool
-}
-
-extension BRNonNullableServerBoolDefaultFalse: Codable {
-    init(from decoder: Decoder) throws {
-        if let value = try? (try? decoder.singleValueContainer())?.decode(Bool.self) {
+public struct BRCBoolNonNullableDefaultFalse: Codable {
+    public var wrappedValue: Bool
+    
+    public init(wrappedValue: Bool) {
+        self.wrappedValue = wrappedValue
+    }
+    
+    public init(from decoder: Decoder) throws {
+        guard let container = try? decoder.singleValueContainer() else {
+            self.wrappedValue = false
+            return
+        }
+        
+        if let value = try? container.decode(Bool.self) {
             self.wrappedValue = value
-        } else if let intValue = try? (try? decoder.singleValueContainer())?.decode(Int.self), intValue == 1 {
+        } else if let intValue = try? container.decode(Int.self), intValue == 1 {
             self.wrappedValue = true
-        } else if let strValue = try? (try? decoder.singleValueContainer())?.decode(String.self) {
+        } else if let strValue = try? container.decode(String.self) {
             if let boolValue = Bool(strValue) {
                 self.wrappedValue = boolValue
             } else if strValue == "1" {
@@ -35,34 +42,41 @@ extension BRNonNullableServerBoolDefaultFalse: Codable {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(wrappedValue)
     }
 }
 
-extension KeyedDecodingContainer {
-    func decode(_ type: BRNonNullableServerBoolDefaultFalse.Type, forKey key: Self.Key) throws -> BRNonNullableServerBoolDefaultFalse {
-        return try decodeIfPresent(type, forKey: key) ?? BRNonNullableServerBoolDefaultFalse(wrappedValue: false)
+public extension KeyedDecodingContainer {
+    func decode(_ type: BRCBoolNonNullableDefaultFalse.Type, forKey key: Self.Key) throws -> BRCBoolNonNullableDefaultFalse {
+        return try decodeIfPresent(type, forKey: key) ?? BRCBoolNonNullableDefaultFalse(wrappedValue: false)
     }
 }
 
 // MARK: Non Nullable Bool Default False
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to true.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
-/// - Example: @BRNonNullableServerBoolDefaultTrue private(set) var someBool: Bool
+/// - Example: @BRCBoolNonNullableDefaultTrue private(set) var someBool: Bool
 @propertyWrapper
-struct BRNonNullableServerBoolDefaultTrue {
-    var wrappedValue: Bool
-}
-
-extension BRNonNullableServerBoolDefaultTrue: Codable {
-    init(from decoder: Decoder) throws {
-        if let value = try? (try? decoder.singleValueContainer())?.decode(Bool.self) {
+public struct BRCBoolNonNullableDefaultTrue: Codable {
+    public var wrappedValue: Bool
+    
+    public init(wrappedValue: Bool) {
+        self.wrappedValue = wrappedValue
+    }
+    
+    public init(from decoder: Decoder) throws {
+        guard let container = try? decoder.singleValueContainer() else {
+            self.wrappedValue = true
+            return
+        }
+        
+        if let value = try? container.decode(Bool.self) {
             self.wrappedValue = value
-        } else if let intValue = try? (try? decoder.singleValueContainer())?.decode(Int.self), intValue == 0 {
+        } else if let intValue = try? container.decode(Int.self), intValue == 0 {
             self.wrappedValue = false
-        } else if let strValue = try? (try? decoder.singleValueContainer())?.decode(String.self) {
+        } else if let strValue = try? container.decode(String.self) {
             if let boolValue = Bool(strValue) {
                 self.wrappedValue = boolValue
             } else if strValue == "0" {
@@ -75,15 +89,15 @@ extension BRNonNullableServerBoolDefaultTrue: Codable {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(wrappedValue)
     }
 }
 
-extension KeyedDecodingContainer {
-    func decode(_ type: BRNonNullableServerBoolDefaultTrue.Type, forKey key: Self.Key) throws -> BRNonNullableServerBoolDefaultTrue {
-        return try decodeIfPresent(type, forKey: key) ?? BRNonNullableServerBoolDefaultTrue(wrappedValue: true)
+public extension KeyedDecodingContainer {
+    func decode(_ type: BRCBoolNonNullableDefaultTrue.Type, forKey key: Self.Key) throws -> BRCBoolNonNullableDefaultTrue {
+        return try decodeIfPresent(type, forKey: key) ?? BRCBoolNonNullableDefaultTrue(wrappedValue: true)
     }
 }
 
@@ -91,23 +105,30 @@ extension KeyedDecodingContainer {
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, or otherwise fails to decode, it will default to nil without causing the decoding of the parent object to fail.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
 /// - If wrappedValue is nil, encodes as a null literal, e.g. { "someBool": null }
-/// - Example: @BROptionalServerBool private(set) var someBool: Bool?
+/// - Example: @BRCBoolOptional private(set) var someBool: Bool?
 @propertyWrapper
-struct BROptionalServerBool {
-    var wrappedValue: Bool?
-}
-
-extension BROptionalServerBool: Codable {
-    init(from decoder: Decoder) throws {
-        if let value = try? (try? decoder.singleValueContainer())?.decode(Bool.self) {
+public struct BRCBoolOptional: Codable {
+    public var wrappedValue: Bool?
+    
+    public init(wrappedValue: Bool? = nil) {
+        self.wrappedValue = wrappedValue
+    }
+    
+    public init(from decoder: Decoder) throws {
+        guard let container = try? decoder.singleValueContainer() else {
+            self.wrappedValue = nil
+            return
+        }
+        
+        if let value = try? container.decode(Bool.self) {
             self.wrappedValue = value
-        } else if let intValue = try? (try? decoder.singleValueContainer())?.decode(Int.self) {
+        } else if let intValue = try? container.decode(Int.self) {
             switch intValue {
             case 0: self.wrappedValue = false
             case 1: self.wrappedValue = true
             default: self.wrappedValue = nil
             }
-        } else if let strValue = try? (try? decoder.singleValueContainer())?.decode(String.self) {
+        } else if let strValue = try? container.decode(String.self) {
             if let boolValue = Bool(strValue) {
                 self.wrappedValue = boolValue
             } else {
@@ -122,38 +143,42 @@ extension BROptionalServerBool: Codable {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(wrappedValue)
     }
 }
 
-extension KeyedDecodingContainer {
-    func decode(_ type: BROptionalServerBool.Type, forKey key: Self.Key) throws -> BROptionalServerBool {
-        return try decodeIfPresent(type, forKey: key) ?? BROptionalServerBool(wrappedValue: nil)
+public extension KeyedDecodingContainer {
+    func decode(_ type: BRCBoolOptional.Type, forKey key: Self.Key) throws -> BRCBoolOptional {
+        return try decodeIfPresent(type, forKey: key) ?? BRCBoolOptional(wrappedValue: nil)
     }
 }
 
 // MARK: Required Bool
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will throw an error potentially causing decoding of the parent object to fail.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
-/// - Example: @BRRequiredServerBool private(set) var someBool: Bool
+/// - Example: @BRCBoolRequired private(set) var someBool: Bool
 @propertyWrapper
-struct BRRequiredServerBool {
-    var wrappedValue: Bool
-}
-
-extension BRRequiredServerBool: Codable {
-    init(from decoder: Decoder) throws {
-        if let value = try? (try? decoder.singleValueContainer())?.decode(Bool.self) {
+public struct BRCBoolRequired: Codable {
+    public var wrappedValue: Bool
+    
+    public init(wrappedValue: Bool) {
+        self.wrappedValue = wrappedValue
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        
+        if let value = try? container.decode(Bool.self) {
             self.wrappedValue = value
-        } else if let intValue = try? (try? decoder.singleValueContainer())?.decode(Int.self) {
+        } else if let intValue = try? container.decode(Int.self) {
             switch intValue {
             case 0: self.wrappedValue = false
             case 1: self.wrappedValue = true
             default: throw DecodingError.typeMismatch(Bool.self, .init(codingPath: decoder.codingPath, debugDescription: "Int Representation not valid Bool"))
             }
-        } else if let strValue = try? (try? decoder.singleValueContainer())?.decode(String.self) {
+        } else if let strValue = try? container.decode(String.self) {
             if let boolValue = Bool(strValue) {
                 self.wrappedValue = boolValue
             } else {
@@ -168,7 +193,7 @@ extension BRRequiredServerBool: Codable {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(wrappedValue)
     }
@@ -178,23 +203,30 @@ extension BRRequiredServerBool: Codable {
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to nil without causing the decoding of the parent object to fail. It will not encode if the wrappedValue is nil.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
 /// - If wrappedValue is nil, does not encode
-/// - Example: @BROptionalNullOmittingServerBool private(set) var someBool: Bool?
+/// - Example: @BRCBoolOptionalNullOmitting private(set) var someBool: Bool?
 @propertyWrapper
-struct BROptionalNullOmittingServerBool {
-    var wrappedValue: Bool?
-}
-
-extension BROptionalNullOmittingServerBool: Codable {
-    init(from decoder: Decoder) throws {
-        if let value = try? (try? decoder.singleValueContainer())?.decode(Bool.self) {
+public struct BRCBoolOptionalNullOmitting: Codable {
+    public var wrappedValue: Bool?
+    
+    public init(wrappedValue: Bool? = nil) {
+        self.wrappedValue = wrappedValue
+    }
+    
+    public init(from decoder: Decoder) throws {
+        guard let container = try? decoder.singleValueContainer() else {
+            self.wrappedValue = nil
+            return
+        }
+        
+        if let value = try? container.decode(Bool.self) {
             self.wrappedValue = value
-        } else if let intValue = try? (try? decoder.singleValueContainer())?.decode(Int.self) {
+        } else if let intValue = try? container.decode(Int.self) {
             switch intValue {
             case 0: self.wrappedValue = false
             case 1: self.wrappedValue = true
             default: self.wrappedValue = nil
             }
-        } else if let strValue = try? (try? decoder.singleValueContainer())?.decode(String.self) {
+        } else if let strValue = try? container.decode(String.self) {
             if let boolValue = Bool(strValue) {
                 self.wrappedValue = boolValue
             } else {
@@ -210,14 +242,14 @@ extension BROptionalNullOmittingServerBool: Codable {
     }
 }
 
-extension KeyedDecodingContainer {
-    func decode(_ type: BROptionalNullOmittingServerBool.Type, forKey key: Self.Key) throws -> BROptionalNullOmittingServerBool {
-        return try decodeIfPresent(type, forKey: key) ?? BROptionalNullOmittingServerBool(wrappedValue: nil)
+public extension KeyedDecodingContainer {
+    func decode(_ type: BRCBoolOptionalNullOmitting.Type, forKey key: Self.Key) throws -> BRCBoolOptionalNullOmitting {
+        return try decodeIfPresent(type, forKey: key) ?? BRCBoolOptionalNullOmitting(wrappedValue: nil)
     }
 }
 
-extension KeyedEncodingContainer {
-    mutating func encode(_ value: BROptionalNullOmittingServerBool, forKey key: Self.Key) throws {
+public extension KeyedEncodingContainer {
+    mutating func encode(_ value: BRCBoolOptionalNullOmitting, forKey key: Self.Key) throws {
         try encodeIfPresent(value.wrappedValue, forKey: key)
     }
 }

@@ -21,7 +21,7 @@ final class BRCodingBoolTests: XCTestCase {
     
     // MARK: Default True Tests
     private struct DefaultTrue: Codable {
-        @BRNonNullableServerBoolDefaultTrue private(set) var testBool: Bool
+        @BRCBoolNonNullableDefaultTrue private(set) var testBool: Bool
     }
     
     func testDecodeDefaultTrueWithValuePresent() throws {
@@ -120,7 +120,7 @@ final class BRCodingBoolTests: XCTestCase {
     
     // MARK: Default False Tests
     private struct DefaultFalse: Codable {
-        @BRNonNullableServerBoolDefaultFalse private(set) var testBool: Bool
+        @BRCBoolNonNullableDefaultFalse private(set) var testBool: Bool
     }
     
     func testDecodeDefaultFalseWithValuePresent() throws {
@@ -219,7 +219,7 @@ final class BRCodingBoolTests: XCTestCase {
     
     // MARK: Optional Bool Tests
     private struct OptionalBool: Codable {
-        @BROptionalServerBool private(set) var testBool: Bool?
+        @BRCBoolOptional private(set) var testBool: Bool?
         
         init(testBool: Bool?) {
             self.testBool = testBool
@@ -332,7 +332,7 @@ final class BRCodingBoolTests: XCTestCase {
     
     // MARK: Required Bool Tests
     private struct RequiredBool: Codable {
-        @BRRequiredServerBool private(set) var testBool: Bool
+        @BRCBoolRequired private(set) var testBool: Bool
     }
     
     func testDecodeRequiredWithValuePresent() throws {
@@ -431,7 +431,7 @@ final class BRCodingBoolTests: XCTestCase {
     
     // MARK: Optional Null Omitting
     private struct OptionalNullOmittingBool: Codable {
-        @BROptionalNullOmittingServerBool private(set) var testBool: Bool?
+        @BRCBoolOptionalNullOmitting private(set) var testBool: Bool?
         init(testBool: Bool?) { self.testBool = testBool }
     }
     
