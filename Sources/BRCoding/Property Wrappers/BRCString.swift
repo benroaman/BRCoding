@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: Optional
-/// Wraps an optonal string, If the value is absent, invalid, null, or otherwise fails to decode, it will default to nil.
+/// Wraps an optonal string. If the value is absent, invalid, null, or otherwise fails to decode, it will default to nil.
 /// - If decoding fails, no error will be thrown to the parent object.
 /// - EX: @BRCStringOptional private(set) var someString: String?
 @propertyWrapper
@@ -37,9 +37,10 @@ public extension KeyedDecodingContainer {
 }
 
 // MARK: Optional Strict
-/// Wraps an optonal string, If the value is absent, empty, whitespace-only, invalid, null, or otherwise fails to decode, it will default to nil.
+/// Wraps an optonal string. If the value is absent, empty, whitespace-only, invalid, null, or otherwise fails to decode, it will default to nil.
 /// - If decoding fails, no error will be thrown to the parent object.
 /// - Trims leading and trailing whitespace. Decode input considered invalid if it is empty after trimming.
+/// - Warning: Can still contain an empty or whitespace string if initialized with the wrappedValue initializer.
 /// - EX: @BRCStringOptionalStrict private(set) var someString: String?
 @propertyWrapper
 public struct BRCStringOptionalStrict: Codable {
@@ -75,7 +76,7 @@ public extension KeyedDecodingContainer {
 // MARK: Required
 /// Wraps a string. If the value is absent, invalid, null, or otherwise fails to decode, throws an error.
 /// - EX: @BRCStringRequired private(set) var someString: String
-/// - Warning: basically redundant to using "let someString: String"
+/// - Warning: basically the same as just using "let someString: String"
 @propertyWrapper
 public struct BRCStringRequired: Codable {
     public var wrappedValue: String
@@ -92,8 +93,9 @@ public struct BRCStringRequired: Codable {
 }
 
 // MARK: Required Strict
-/// Wraps an optonal string, If the value is absent, empty, whitespace-only, invalid, null, or otherwise fails to decode, throws an error.
-/// - Trims leading and trailing whitespace. Decode input considered invalid if it is empty after trimming.
+/// Wraps a string. If the value is absent, empty, whitespace-only, invalid, null, or otherwise fails to decode, throws an error.
+/// - Trims leading and trailing whitespace. Decode input considered invalid if empty after trimming.
+/// - Warning: Can still contain an empty or whitespace string if initialized with the wrappedValue initializer.
 /// - EX: @BRCStringRequiredStrict private(set) var someString: String?
 @propertyWrapper
 public struct BRCStringRequiredStrict: Codable {
