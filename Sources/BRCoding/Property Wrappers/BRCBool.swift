@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: Non Nullable Bool Default False
+// MARK: Non Nullable Default False
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to false.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
 /// - Example: @BRCBoolNonNullableDefaultFalse private(set) var someBool: Bool
@@ -54,7 +54,7 @@ public extension KeyedDecodingContainer {
     }
 }
 
-// MARK: Non Nullable Bool Default False
+// MARK: Non Nullable Default False
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to true.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
 /// - Example: @BRCBoolNonNullableDefaultTrue private(set) var someBool: Bool
@@ -101,7 +101,7 @@ public extension KeyedDecodingContainer {
     }
 }
 
-// MARK: Optional Bool
+// MARK: Optional
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, or otherwise fails to decode, it will default to nil without causing the decoding of the parent object to fail.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
 /// - If wrappedValue is nil, encodes as a null literal, e.g. { "someBool": null }
@@ -155,7 +155,7 @@ public extension KeyedDecodingContainer {
     }
 }
 
-// MARK: Required Bool
+// MARK: Required
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will throw an error potentially causing decoding of the parent object to fail.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
 /// - Example: @BRCBoolRequired private(set) var someBool: Bool
@@ -199,7 +199,7 @@ public struct BRCBoolRequired: Codable {
     }
 }
 
-// MARK: Optional Null Omitting Bool
+// MARK: Optional Null Omitting
 /// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to nil without causing the decoding of the parent object to fail. It will not encode if the wrappedValue is nil.
 /// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
 /// - If wrappedValue is nil, does not encode

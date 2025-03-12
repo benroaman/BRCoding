@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: Optional ISO8601 Date
+// MARK: Optional ISO8601
 /// Wraps a Date that can be decoded from a standard ISO8601 string, e.g. "1964-09-11T19:15:00-01:00". If the value is absent, invalid, null, or otherwise fails to decode, it will default to nil.
 /// - If decoding fails, no error will be thrown to the parent object.
 /// - Uses Date.init<T, Value>(_ value: Value, strategy: T) to interpret ISO8601 strings
@@ -46,7 +46,7 @@ public extension KeyedDecodingContainer {
     }
 }
 
-// MARK: Optional Null Omitting ISO8601 Date
+// MARK: Optional Null Omitting ISO8601
 /// Wraps a Date that can be decoded from a standard ISO8601 string, e.g. "1964-09-11T19:15:00-01:00". If the value is absent, invalid, null, or otherwise fails to decode, it will default to nil.
 /// - If decoding fails, no error will be thrown to the parent object.
 /// - Uses Date.init<T, Value>(_ value: Value, strategy: T) to interpret ISO8601 strings
@@ -87,7 +87,7 @@ public extension KeyedEncodingContainer {
     }
 }
 
-// MARK: Required ISO8601 Date
+// MARK: Required ISO8601
 /// Wraps a Date that can be decoded from a standard ISO8601 string, e.g. "1964-09-11T19:15:00-01:00". If the value is absent, invalid, null, or otherwise fails to decode, an error will be thrown.
 /// - Uses Date.init<T, Value>(_ value: Value, strategy: T) to interpret ISO8601 strings
 /// - If initialized from decoder, maintains a reference to the original ISO8601 string to use in encoding, and for reference to the original timezone and format.
