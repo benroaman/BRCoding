@@ -1,7 +1,7 @@
 import XCTest
 @testable import BRCoding
 
-final class BRCodingBoolTests: XCTestCase {
+final class BRCBoolTests: XCTestCase {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     

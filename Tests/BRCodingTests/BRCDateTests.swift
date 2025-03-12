@@ -1,5 +1,5 @@
 //
-//  BRCodingDateTests.swift
+//  BRCDateTests.swift
 //
 //
 //  Created by Ben Roaman on 3/11/25.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import BRCoding
 
-final class BRCodingDateTests: XCTestCase {
+final class BRCDateTests: XCTestCase {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
