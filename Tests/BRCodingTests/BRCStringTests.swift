@@ -21,7 +21,7 @@ final class BRCStringTests: XCTestCase {
     private lazy var emptyStringJSON = #"{"someString":"\#(emptyString)"}"#
     private lazy var emptyStringJSONData = emptyStringJSON.data(using: .utf8)!
     
-    let whitespaceString = "   \n"
+    let whitespaceString = "   "
     private lazy var whitespaceStringJSON = #"{"someString":"\#(whitespaceString)"}"#
     private lazy var whitespaceStringJSONData = whitespaceStringJSON.data(using: .utf8)!
     
@@ -41,7 +41,7 @@ final class BRCStringTests: XCTestCase {
     
     func testOptional() {
         if let validStringTestObject = try? decoder.decode(OptionalString.self, from: validStringJSONData) {
-            XCTAssert(validStringTestObject.someString == validString, <#T##message: String##String#>)
+            XCTAssert(validStringTestObject.someString == validString, "Valid string decoded incorrectly")
             
             if let encoded = try? encoder.encode(validStringTestObject) {
                 XCTAssert(String(data: encoded, encoding: .utf8)! == validStringJSON, "Encoding valid string produced bad JSON")
@@ -54,37 +54,48 @@ final class BRCStringTests: XCTestCase {
                 XCTFail("Valid string failed to encode")
             }
         } else {
-            XCTFail(<#T##message: String##String#>)
+            XCTFail("Failed to decode valid string")
         }
         
         if let emptyStringTestObject = try? decoder.decode(OptionalString.self, from: emptyStringJSONData) {
-            XCTAssert(emptyStringTestObject.someString == emptyString, <#T##message: String##String#>)
+            XCTAssert(emptyStringTestObject.someString == emptyString, "Empty string decoded incorrectly")
         } else {
-            XCTFail(<#T##message: String##String#>)
+            XCTFail("Failed to decode empty string")
         }
         
         if let whitespaceStringTestObject = try? decoder.decode(OptionalString.self, from: whitespaceStringJSONData) {
-            XCTAssert(whitespaceStringTestObject.someString == whitespaceString, <#T##message: String##String#>)
+            XCTAssert(whitespaceStringTestObject.someString == whitespaceString, "Whitespace string decoded Incorrectly")
         } else {
-            XCTFail(<#T##message: String##String#>)
+            XCTFail("Failed to decode whitespace string")
         }
         
-        if let nullLiteralTestObject = try? decoder.decode(OptionalString.self, from: whitespaceStringJSONData) {
-            XCTAssert(nullLiteralTestObject.someString == nil, <#T##message: String##String#>)
+        if let nullLiteralTestObject = try? decoder.decode(OptionalString.self, from: nullLiteralJSONData) {
+            XCTAssert(nullLiteralTestObject.someString == nil, "Null literal decoded incorrectly")
         } else {
-            XCTFail(<#T##message: String##String#>)
+            XCTFail("Failed to decode null literal")
         }
         
         if let missingFieldTestObject = try? decoder.decode(OptionalString.self, from: missingFieldJSONData) {
-            XCTAssert(missingFieldTestObject.someString == nil, <#T##message: String##String#>)
+            XCTAssert(missingFieldTestObject.someString == nil, "Missing field decoded incorrectly")
         } else {
-            XCTFail(<#T##message: String##String#>)
+            XCTFail("Failed to decode missing field")
         }
         
         if let invalidTypeTestObject = try? decoder.decode(OptionalString.self, from: invalidTypeJSONData) {
-            XCTAssert(invalidTypeTestObject.someString == nil, <#T##message: String##String#>)
+            XCTAssert(invalidTypeTestObject.someString == nil, "Invalid type decoded incorrectly")
+            
+            if let encoded = try? encoder.encode(invalidTypeTestObject) {
+                XCTAssert(String(data: encoded, encoding: .utf8)! == nullLiteralJSON, "Encoding invalid type produced bad JSON")
+                if let decoded = try? decoder.decode(OptionalString.self, from: encoded) {
+                    XCTAssert(decoded.someString == nil, "Encoded invalid type decoded incorrectly")
+                } else {
+                    XCTFail("Failed to decode encoded invalid type")
+                }
+            } else {
+                XCTFail("Failed to encode invalid type")
+            }
         } else {
-            XCTFail(<#T##message: String##String#>)
+            XCTFail("Failed to decode invalid type")
         }
     }
     
