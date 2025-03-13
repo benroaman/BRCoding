@@ -8,9 +8,9 @@
 import Foundation
 
 // MARK: Non Nullable Default False
-/// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to false.
-/// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
-/// - Example: @BRCBoolNonNullableDefaultFalse private(set) var someBool: Bool
+/// Wraps a `Bool` that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, `null`, or otherwise fails to decode, it will default to `false`.
+/// - Valid decode values are `true`, `false`, `1`, `0`, `"true"`, `"false"`, `"1"`, and `"0"`.
+/// - `Ex: @BRCBoolNonNullableDefaultFalse private(set) var someBool: Bool`
 @propertyWrapper
 public struct BRCBoolNonNullableDefaultFalse: Codable {
     public var wrappedValue: Bool
@@ -55,9 +55,9 @@ public extension KeyedDecodingContainer {
 }
 
 // MARK: Non Nullable Default False
-/// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, null, or otherwise fails to decode, it will default to true.
-/// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
-/// - Example: @BRCBoolNonNullableDefaultTrue private(set) var someBool: Bool
+/// Wraps a `Bool` that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, `null`, or otherwise fails to decode, it will default to `true`.
+/// - Valid decode values are `true`, `false`, `1`, `0`, `"true"`, `"false"`, `"1"`, and `"0"`.
+/// - `EX: @BRCBoolNonNullableDefaultTrue private(set) var someBool: Bool`
 @propertyWrapper
 public struct BRCBoolNonNullableDefaultTrue: Codable {
     public var wrappedValue: Bool
@@ -102,10 +102,10 @@ public extension KeyedDecodingContainer {
 }
 
 // MARK: Optional
-/// Wraps a Bool that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, or otherwise fails to decode, it will default to nil without causing the decoding of the parent object to fail.
-/// - Valid decode values are true, false, 1, 0, "true", "false", "1", and "0".
-/// - If wrappedValue is nil, encodes as a null literal, e.g. { "someBool": null }
-/// - Example: @BRCBoolOptional private(set) var someBool: Bool?
+/// Wraps a `Bool` that can be decoded from literal booleans, valid integers, and valid strings. If the value is absent, invalid, or otherwise fails to decode, it will default to `nil` without causing the decoding of the parent object to fail.
+/// - Valid decode values are `true`, `false`, `1`, `0`, `"true"`, `"false"`, `"1"`, and `"0"`.
+/// - If `wrappedValue` is `nil`, encodes as a `null` literal.
+/// - EX: `@BRCBoolOptional private(set) var someBool: Bool?`
 @propertyWrapper
 public struct BRCBoolOptional: Codable {
     public var wrappedValue: Bool?

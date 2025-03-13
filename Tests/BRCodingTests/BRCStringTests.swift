@@ -9,10 +9,11 @@ import XCTest
 @testable import BRCoding
 
 final class BRCStringTests: XCTestCase {
+    // MARK: Coders
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
-    // MARK: Test Values
+    // MARK: Test Data
     let validString = "This is a valid string, y'all 🥸"
     private lazy var validStringJSON = #"{"testString":"\#(validString)"}"#
     private lazy var validStringJSONData = validStringJSON.data(using: .utf8)!

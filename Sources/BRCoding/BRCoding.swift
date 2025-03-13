@@ -4,13 +4,7 @@
 import Foundation
 
 final class BRCoding {
-//    internal static let iso8601WithTimeZoneDateFormatter: ISO8601DateFormatter = {
-//        let result = ISO8601DateFormatter()
-//        result.formatOptions.insert(.withTimeZone)
-//        result.timeZone = TimeZone.autoupdatingCurrent
-//        return result
-//    }()
-//    
+    /// I'm Considering using something like this to log the specific coding keys and errors when coding failures happen without throwing an error
 //    internal static func handleError(_ error: Error?, defaultValue: Any?, context: String) {
 //        #if DEBUG
 //        switch error as? DecodingError {

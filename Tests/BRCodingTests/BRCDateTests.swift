@@ -9,10 +9,11 @@ import XCTest
 @testable import BRCoding
 
 final class BRCDateTests: XCTestCase {
+    // MARK: Coders
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
-    // MARK: Test Values
+    // MARK: Test Data
     private let wootenISO6601 = "1964-09-11T19:15:00-01:00"
     private var wootenJSON: String { #"{"testDate":"\#(wootenISO6601)"}"# }
     private var wootenJSONData: Data { wootenJSON.data(using: .utf8)! }

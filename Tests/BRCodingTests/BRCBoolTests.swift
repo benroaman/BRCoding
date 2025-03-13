@@ -2,9 +2,11 @@ import XCTest
 @testable import BRCoding
 
 final class BRCBoolTests: XCTestCase {
+    // MARK: Coders
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
+    // MARK: Test Data
     private let trueLiteralJSON = #"{"testBool":true}"#.data(using: .utf8)!
     private let trueNumericalJSON = #"{"testBool":1}"#.data(using: .utf8)!
     private let trueStringyBoolJSON = #"{"testBool":"true"}"#.data(using: .utf8)!

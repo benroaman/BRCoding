@@ -41,7 +41,7 @@ extension KeyedDecodingContainer {
 // TODO: BRCArrayNonNullableEmptyNullEncoding
 // TODO: BRCArrayNonNullableEmptyOmitting
 
-// MARK: Validated
+// MARK: Non Nullable Validated
 /// Wraps an array of `BRCSelfValidatingEntity`. If the value is absent, invalid, `null`, or otherwise fails to decode, it will default to `[]`.
 /// - If any value within the decoding array fails to decode, or it's `isValid` evaluates to `false`, it is omitted, and decoding will continue for the rest of the content of the array.
 /// - EX: `@BRCArrayValidated private(set) var someArray: [SelfValidatingEntity]`
@@ -82,7 +82,6 @@ struct BRCArrayNonNullableValidated<T: BRCSelfValidatingEntity>: Codable {
     }
 }
 
-// MARK: Support Types
 extension BRCArrayNonNullableValidated {
     private struct AnyDecodable: Decodable { }
     
