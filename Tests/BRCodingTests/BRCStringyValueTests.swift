@@ -19,11 +19,7 @@ final class BRCStringyValueTests: XCTestCase {
     private let testInt: Int = 119
     private lazy var intJSON = #"{"testValue":\#(testInt)}"#
     private lazy var intJSONData = intJSON.data(using: .utf8)!
-    private let nullLiteralJSON = #"{"testValue":null}"#
-    private lazy var nullLiteralJSONData = nullLiteralJSON.data(using: .utf8)!
     private let invalidTypeJSONData = #"{"testValue":"Invalid String"}"#.data(using: .utf8)!
-    private let missingFieldJSON = #"{}"#
-    private lazy var missingFieldJSONData = missingFieldJSON.data(using: .utf8)!
     
     // MARK: Optional
     private struct OptionalValue: Codable {
@@ -49,7 +45,7 @@ final class BRCStringyValueTests: XCTestCase {
             XCTFail("Int failed to decode")
         }
         
-        if let nullLiteralTest = try? decoder.decode(OptionalValue.self, from: nullLiteralJSONData) {
+        if let nullLiteralTest = try? decoder.decode(OptionalValue.self, from: BRCodingTests.nullLiteralJSONData) {
             XCTAssert(nullLiteralTest.testValue == nil, "Null literal decoded incorrectly")
         } else {
             XCTFail("Failed to decode null literal")
@@ -61,11 +57,11 @@ final class BRCStringyValueTests: XCTestCase {
             XCTFail("Failed to decode invalid type")
         }
         
-        if let missingFieldTest = try? decoder.decode(OptionalValue.self, from: missingFieldJSONData) {
+        if let missingFieldTest = try? decoder.decode(OptionalValue.self, from: BRCodingTests.missingFieldJSONData) {
             XCTAssert(missingFieldTest.testValue == nil, "Missing field decoded incorrectly")
             
             if let encoded = try? encoder.encode(missingFieldTest) {
-                XCTAssert(String(data: encoded, encoding: .utf8)! == nullLiteralJSON, "Encoding int produced bad JSON")
+                XCTAssert(String(data: encoded, encoding: .utf8)! == BRCodingTests.nullLiteralJSON, "Encoding int produced bad JSON")
             } else {
                 XCTFail("Failed to encode missing field")
             }
@@ -98,7 +94,7 @@ final class BRCStringyValueTests: XCTestCase {
             XCTFail("Int failed to decode")
         }
         
-        if let nullLiteralTest = try? decoder.decode(OptionalNullOmittingValue.self, from: nullLiteralJSONData) {
+        if let nullLiteralTest = try? decoder.decode(OptionalNullOmittingValue.self, from: BRCodingTests.nullLiteralJSONData) {
             XCTAssert(nullLiteralTest.testValue == nil, "Null literal decoded incorrectly")
         } else {
             XCTFail("Failed to decode null literal")
@@ -110,11 +106,11 @@ final class BRCStringyValueTests: XCTestCase {
             XCTFail("Failed to decode invalid type")
         }
         
-        if let missingFieldTest = try? decoder.decode(OptionalNullOmittingValue.self, from: missingFieldJSONData) {
+        if let missingFieldTest = try? decoder.decode(OptionalNullOmittingValue.self, from: BRCodingTests.missingFieldJSONData) {
             XCTAssert(missingFieldTest.testValue == nil, "Missing field decoded incorrectly")
             
             if let encoded = try? encoder.encode(missingFieldTest) {
-                XCTAssert(String(data: encoded, encoding: .utf8)! == missingFieldJSON, "Encoding int produced bad JSON")
+                XCTAssert(String(data: encoded, encoding: .utf8)! == BRCodingTests.missingFieldJSON, "Encoding int produced bad JSON")
             } else {
                 XCTFail("Failed to encode missing field")
             }
@@ -147,7 +143,7 @@ final class BRCStringyValueTests: XCTestCase {
             XCTFail("Int failed to decode")
         }
         
-        if let _ = try? decoder.decode(ReuiredValue.self, from: nullLiteralJSONData) {
+        if let _ = try? decoder.decode(ReuiredValue.self, from: BRCodingTests.nullLiteralJSONData) {
             XCTFail("Null literal decoded, should have failed")
         }
         
@@ -155,7 +151,7 @@ final class BRCStringyValueTests: XCTestCase {
             XCTFail("Invalid type decoded, should have failed")
         }
         
-        if let _ = try? decoder.decode(ReuiredValue.self, from: missingFieldJSONData) {
+        if let _ = try? decoder.decode(ReuiredValue.self, from: BRCodingTests.missingFieldJSONData) {
             XCTFail("Missing field decoded, should have failed")
         }
     }
