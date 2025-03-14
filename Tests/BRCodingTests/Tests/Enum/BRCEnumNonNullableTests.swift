@@ -13,7 +13,7 @@ final class BRCEnumNonNullableTests: XCTestCase {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
-    // MARK: Non Nullable
+    // MARK: Test Type
     private struct TestCodable: Codable {
         @BRCEnumNonNullable private(set) var testValue: EnumTestData.TestEnum
     }
@@ -60,20 +60,18 @@ final class BRCEnumNonNullableTests: XCTestCase {
     }
     
     // MARK: Encoding Tests
-    func testEncoding() {
-        func testValidCaseDecodesCorrectly() {
-            let test = TestCodable(testValue: EnumTestData.validCase)
-            if let encoded = try? encoder.encode(test) {
-                XCTAssert(String(data: encoded, encoding: .utf8) == EnumTestData.validCaseJSON, "Valid case encoding produced bad JSON")
-                
-                if let decoded = try? decoder.decode(TestCodable.self, from: encoded) {
-                    XCTAssert(decoded.testValue == EnumTestData.validCase, "Valid case encoded then decoded incorrectly")
-                } else {
-                    XCTFail("Valid case encoded then failed to decode")
-                }
+    func testValidCaseEncodesCorrectly() {
+        let test = TestCodable(testValue: EnumTestData.validCase)
+        if let encoded = try? encoder.encode(test) {
+            XCTAssert(String(data: encoded, encoding: .utf8) == EnumTestData.validCaseJSON, "Valid case encoding produced bad JSON")
+            
+            if let decoded = try? decoder.decode(TestCodable.self, from: encoded) {
+                XCTAssert(decoded.testValue == EnumTestData.validCase, "Valid case encoded then decoded incorrectly")
             } else {
-                XCTFail("Valid case failed to encode")
+                XCTFail("Valid case encoded then failed to decode")
             }
+        } else {
+            XCTFail("Valid case failed to encode")
         }
     }
 }

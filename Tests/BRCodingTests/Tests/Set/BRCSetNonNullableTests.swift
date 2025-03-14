@@ -13,7 +13,7 @@ final class BRCSetNonNullableTests: XCTestCase {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
-    // MARK: NonNullable
+    // MARK: Test Type
     private struct TestCodable: Codable {
         @BRCSetNonNullable private(set) var testValue: Set<Int>
     }
