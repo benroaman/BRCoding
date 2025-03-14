@@ -37,17 +37,15 @@ struct ArrayTestData {
     static let completelyValidArrayJSONData = (try? JSONEncoder().encode(["testValue": completelyValidArray]))!
     static let completelyValidArrayJSON = String(data: completelyValidArrayJSONData, encoding: .utf8)!
     
-    static let partiallyValidArray: [Entity] = [Entity(id: 1, testInt: 123, testString: nil, kind: .int),
-                                                 Entity(id: 2, testInt: nil, testString: nil, kind: .string),
-                                                 Entity(id: 3, testInt: nil, testString: "Test", kind: .string)] // valid ids are 1, 3
-    static let partiallyValidArrayJSONData = (try? JSONEncoder().encode(["testValue": partiallyValidArray]))!
-    static let partiallyValidArrayJSON = String(data: partiallyValidArrayJSONData, encoding: .utf8)!
-    
-    static let completelyInvalidArray: [Entity] = [Entity(id: 1, testInt: nil, testString: nil, kind: .int),
-                                                    Entity(id: 2, testInt: nil, testString: nil, kind: .string),
-                                                    Entity(id: 3, testInt: nil, testString: nil, kind: .string)]
+    static let completelyInvalidArray: [Entity] = [Entity(id: 3, testInt: nil, testString: nil, kind: .int),
+                                                   Entity(id: 4, testInt: nil, testString: nil, kind: .string),
+                                                   Entity(id: 5, testInt: nil, testString: nil, kind: .string)]
     static let completelyInvalidArrayJSONData = (try? JSONEncoder().encode(["testValue": completelyInvalidArray]))!
     static let completelyInvalidArrayJSON = String(data: completelyInvalidArrayJSONData, encoding: .utf8)!
+    
+    static let partiallyValidArray: [Entity] = completelyValidArray + completelyInvalidArray
+    static let partiallyValidArrayJSONData = (try? JSONEncoder().encode(["testValue": partiallyValidArray]))!
+    static let partiallyValidArrayJSON = String(data: partiallyValidArrayJSONData, encoding: .utf8)!
     
     static let emptyArray: [Entity] = []
     static let emptyArrayJSONData = (try? JSONEncoder().encode(["testValue": emptyArray]))!
