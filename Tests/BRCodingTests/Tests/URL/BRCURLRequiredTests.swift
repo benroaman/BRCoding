@@ -28,27 +28,19 @@ final class BRCURLRequiredTests: XCTestCase {
     }
     
     func testInvalidURLDoesNotDecode() {
-        if let _ = try? decoder.decode(TestCodable.self, from: URLTestData.invalidURLJSONData) {
-            XCTFail("Invalid URL decoded but should have failed")
-        }
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: URLTestData.invalidURLJSONData), "Invalid URL decoded but should have failed")
     }
     
     func testInvalidTypeDoesNotDecode() {
-        if let _ = try? decoder.decode(TestCodable.self, from: URLTestData.invalidTypeJSONData) {
-            XCTFail("Invalid type decoded but should have failed")
-        }
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: URLTestData.invalidTypeJSONData), "Invalid type decoded but should have failed")
     }
     
     func testNullLiteralDoesNotDecode() {
-        if let _ = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
-            XCTFail("Null literal decoded but should have failed")
-        }
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData), "Null literal decoded but should have failed")
     }
     
     func testMissingFieldDoesNotDecode() {
-        if let _ = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
-            XCTFail("Missing field decoded but should have failed")
-        }
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData), "Missing field decoded but should have failed")
     }
     
     // MARK: Encoding Tests

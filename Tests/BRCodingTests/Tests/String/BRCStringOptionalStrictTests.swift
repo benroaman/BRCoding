@@ -29,7 +29,7 @@ final class BRCStringOptionalStrictTests: XCTestCase {
     
     func testEmptyStringDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: StringTestData.emptyStringJSONData) {
-            XCTAssert(test.testValue == nil, "Empty string decoded incorrectly")
+            XCTAssertNil(test.testValue, "Empty string decoded incorrectly")
         } else {
             XCTFail("Empty string failed to decode")
         }
@@ -37,7 +37,7 @@ final class BRCStringOptionalStrictTests: XCTestCase {
     
     func testWhitespaceStringDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: StringTestData.whitespaceStringJSONData) {
-            XCTAssert(test.testValue == nil, "Whitespace string decoded Incorrectly")
+            XCTAssertNil(test.testValue, "Whitespace string decoded Incorrectly")
         } else {
             XCTFail("Whitespace string failed to decode")
         }
@@ -45,7 +45,7 @@ final class BRCStringOptionalStrictTests: XCTestCase {
     
     func testNullLiteralDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
-            XCTAssert(test.testValue == nil, "Null literal decoded incorrectly")
+            XCTAssertNil(test.testValue, "Null literal decoded incorrectly")
         } else {
             XCTFail("Null literal failed to decode")
         }
@@ -53,7 +53,7 @@ final class BRCStringOptionalStrictTests: XCTestCase {
     
     func testMissingFieldDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
-            XCTAssert(test.testValue == nil, "Missing field decoded incorrectly")
+            XCTAssertNil(test.testValue, "Missing field decoded incorrectly")
         } else {
             XCTFail("Missing field failed to decode")
         }
@@ -61,7 +61,7 @@ final class BRCStringOptionalStrictTests: XCTestCase {
     
     func testInvalidTypeDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: StringTestData.invalidTypeJSONData) {
-            XCTAssert(test.testValue == nil, "Invalid type decoded incorrectly")
+            XCTAssertNil(test.testValue, "Invalid type decoded incorrectly")
         } else {
             XCTFail("Invalid type failed to decode")
         }

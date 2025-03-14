@@ -36,21 +36,15 @@ final class BRCStringyValueRequiredTests: XCTestCase {
     }
     
     func testNullLiteralDoesNotDecode() {
-        if let _ = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
-            XCTFail("Null literal decoded, should have failed")
-        }
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData), "Null literal decoded, should have failed")
     }
     
     func testInvalidTypeDoesNotDecode() {
-        if let _ = try? decoder.decode(TestCodable.self, from: StringyValueTestData.invalidTypeJSONData) {
-            XCTFail("Invalid type decoded, should have failed")
-        }
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: StringyValueTestData.invalidTypeJSONData), "Invalid type decoded, should have failed")
     }
     
     func testMissingFieldDoesNotDecode() {
-        if let _ = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
-            XCTFail("Missing field decoded, should have failed")
-        }
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData), "Missing field decoded, should have failed")
     }
     
     // MARK: Encoding Tests
