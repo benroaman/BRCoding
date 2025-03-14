@@ -64,7 +64,7 @@ final class BRCStringyValueOptionalNullOmittingTests: XCTestCase {
         let test = TestCodable(testValue: StringyValueTestData.testInt)
         
         if let encoded = try? encoder.encode(test) {
-            XCTAssert(String(data: encoded, encoding: .utf8)! == StringyValueTestData.intJSON, "Int encoding produced bad JSON")
+            XCTAssert(String(data: encoded, encoding: .utf8)! == StringyValueTestData.intJSON, "Int encoding produced incorrect JSON")
             
             if let decoded = try? decoder.decode(TestCodable.self, from: encoded) {
                 XCTAssert(decoded.testValue == StringyValueTestData.testInt, "Int encoded then decoded incorrectly")
@@ -80,9 +80,9 @@ final class BRCStringyValueOptionalNullOmittingTests: XCTestCase {
         let test = TestCodable(testValue: nil)
         
         if let encoded = try? encoder.encode(test) {
-            XCTAssert(String(data: encoded, encoding: .utf8)! == GeneralTestData.missingFieldJSON, "Encoding int produced bad JSON")
+            XCTAssert(String(data: encoded, encoding: .utf8)! == GeneralTestData.missingFieldJSON, "Encoding nil produced incorrect JSON")
         } else {
-            XCTFail("Failed to encode missing field")
+            XCTFail("Nil failed to encode")
         }
     }
 }

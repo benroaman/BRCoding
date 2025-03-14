@@ -13,47 +13,64 @@ final class BRCStringRequiredStrictTests: XCTestCase {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
-    // MARK: Required Strict
-    private struct StringRequiredStrict: Codable {
+    // MARK: Test Type
+    private struct TestCodable: Codable {
         @BRCStringRequiredStrict private(set) var testValue: String
     }
     
-    func testRequiredStrict() {
-        if let validStringTestObject = try? decoder.decode(StringRequiredStrict.self, from: StringTestData.validStringJSONData) {
-            XCTAssert(validStringTestObject.testValue == StringTestData.validString, "Valid string decoded incorrectly")
-            
-            if let encoded = try? encoder.encode(validStringTestObject) {
-                XCTAssert(String(data: encoded, encoding: .utf8)! == StringTestData.validStringJSON, "Encoding valid string produced bad JSON")
-                if let decoded = try? decoder.decode(StringRequiredStrict.self, from: encoded) {
-                    XCTAssert(decoded.testValue == StringTestData.validString, "Encoded valid string decoded incorrectly")
-                } else {
-                    XCTFail("Encoded valid string failed to decode")
-                }
+    // MARK: Decoding Tests
+    func testValidStringDecodesCorrectly() {
+        if let test = try? decoder.decode(TestCodable.self, from: StringTestData.validStringJSONData) {
+            XCTAssert(test.testValue == StringTestData.validString, "Valid string decoded incorrectly")
+        } else {
+            XCTFail("Valid string failed to decode")
+        }
+    }
+    
+    func testEmptyStringDoesNotDecode() {
+        if let _ = try? decoder.decode(TestCodable.self, from: StringTestData.emptyStringJSONData) {
+            XCTFail("Empty string decoded, should have failed")
+        }
+    }
+    
+    func testWhitespaceStringDoesNotDecode() {
+        if let _ = try? decoder.decode(TestCodable.self, from: StringTestData.whitespaceStringJSONData) {
+            XCTFail("Whitespace string decoded, should have failed")
+        }
+    }
+    
+    func testNullLiteralDoesNotDecode() {
+        if let _ = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
+            XCTFail("Null literal decoded, should have failed")
+        }
+    }
+    
+    func testMissingFieldDecodesToNil() {
+        if let _ = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
+            XCTFail("Missing field decoded, should have failed")
+        } else {
+        }
+    }
+    
+    func testInvalidTypeDecodesToNil() {
+        if let _ = try? decoder.decode(TestCodable.self, from: StringTestData.invalidTypeJSONData) {
+            XCTFail("Invalid type decoded, should have failed")
+        }
+    }
+    
+    // MARK: Encoding Tests
+    func testValidStringEncodesCorrectly() {
+        let test = (try? decoder.decode(TestCodable.self, from: StringTestData.validStringJSONData))!
+        
+        if let encoded = try? encoder.encode(test) {
+            XCTAssert(String(data: encoded, encoding: .utf8)! == StringTestData.validStringJSON, "Valid string encoding produced incorrect JSON")
+            if let decoded = try? decoder.decode(TestCodable.self, from: encoded) {
+                XCTAssert(decoded.testValue == StringTestData.validString, "Valid string encoded then decoded incorrectly")
             } else {
-                XCTFail("Valid string failed to encode")
+                XCTFail("Valid string encoded then failed to decode")
             }
         } else {
-            XCTFail("Failed to decode valid string")
-        }
-        
-        if let _ = try? decoder.decode(StringRequiredStrict.self, from: StringTestData.emptyStringJSONData) {
-            XCTFail("Decoded empty string, should have failed")
-        }
-        
-        if let _ = try? decoder.decode(StringRequiredStrict.self, from: StringTestData.whitespaceStringJSONData) {
-            XCTFail("Decoded whitespace string, should have failed")
-        }
-        
-        if let _ = try? decoder.decode(StringRequiredStrict.self, from: GeneralTestData.nullLiteralJSONData) {
-            XCTFail("Decoded null literal, should have failed")
-        }
-        
-        if let _ = try? decoder.decode(StringRequiredStrict.self, from: GeneralTestData.missingFieldJSONData) {
-            XCTFail("Decoded missing field, should have failed")
-        }
-        
-        if let _ = try? decoder.decode(StringRequiredStrict.self, from: StringTestData.invalidTypeJSONData) {
-            XCTFail("Decoded invalid type, should have failed")
+            XCTFail("Valid string failed to encode")
         }
     }
 }
