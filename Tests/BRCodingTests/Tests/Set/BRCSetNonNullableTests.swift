@@ -14,13 +14,13 @@ final class BRCSetNonNullableTests: XCTestCase {
     private let encoder = JSONEncoder()
     
     // MARK: NonNullable
-    private struct SetNonNullable: Codable {
+    private struct TestCodable: Codable {
         @BRCSetNonNullable private(set) var testValue: Set<Int>
     }
     
     // MARK: Decoding Tests
     func testValidSetDecodesCorrectly() {
-        if let setTest = try? decoder.decode(SetNonNullable.self, from: SetTestData.setJSONData) {
+        if let setTest = try? decoder.decode(TestCodable.self, from: SetTestData.setJSONData) {
             XCTAssert(setTest.testValue == SetTestData.set, "Set decoded incorrectly")
         } else {
             XCTFail("Set failed to decode")
@@ -28,7 +28,7 @@ final class BRCSetNonNullableTests: XCTestCase {
     }
     
     func testDecodingArrayWithRedundanciesProducesCorrectSet() {
-        if let test = try? decoder.decode(SetNonNullable.self, from: SetTestData.arrayJSONData) {
+        if let test = try? decoder.decode(TestCodable.self, from: SetTestData.arrayJSONData) {
             XCTAssert(test.testValue == Set(SetTestData.array), "Array decoded incorrectly")
         } else {
             XCTFail("Array failed to decode")
@@ -36,7 +36,7 @@ final class BRCSetNonNullableTests: XCTestCase {
     }
     
     func testInvalidTypeDecodesToEmptySet() {
-        if let test = try? decoder.decode(SetNonNullable.self, from: SetTestData.invalidTypeJSONData) {
+        if let test = try? decoder.decode(TestCodable.self, from: SetTestData.invalidTypeJSONData) {
             XCTAssert(test.testValue == [], "Invalid Type decoded incorrectly")
         } else {
             XCTFail("Invalid Type failed to decode")
@@ -44,7 +44,7 @@ final class BRCSetNonNullableTests: XCTestCase {
     }
     
     func testNullLiteralDecodesToEmptySet() {
-        if let test = try? decoder.decode(SetNonNullable.self, from: GeneralTestData.nullLiteralJSONData) {
+        if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
             XCTAssert(test.testValue == [], "Null Literal decoded incorrectly")
         } else {
             XCTFail("Null Literal failed to decode")
@@ -52,7 +52,7 @@ final class BRCSetNonNullableTests: XCTestCase {
     }
     
     func testMissingFieldDecodesToEmptySet() {
-        if let test = try? decoder.decode(SetNonNullable.self, from: GeneralTestData.missingFieldJSONData) {
+        if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
             XCTAssert(test.testValue == [], "Missing field decoded incorrectly")
         } else {
             XCTFail("Missing field failed to decode")
@@ -61,10 +61,10 @@ final class BRCSetNonNullableTests: XCTestCase {
     
     // MARK: Encoding Tests
     func testEncodingSet() {
-        let test = SetNonNullable(testValue: SetTestData.set)
+        let test = TestCodable(testValue: SetTestData.set)
         
         if let encoded = try? encoder.encode(test) {
-            if let decoded = try? decoder.decode(SetNonNullable.self, from: encoded) {
+            if let decoded = try? decoder.decode(TestCodable.self, from: encoded) {
                 XCTAssert(decoded.testValue == SetTestData.set, "Set encoded then decoded incorrectly")
             } else {
                 XCTFail("Set encoded then failed to decode")
