@@ -56,7 +56,7 @@ final class BRCArrayTests: XCTestCase {
     private lazy var emptyArrayJSONData = (try? encoder.encode(["testValue": emptyArray]))!
     private lazy var emptyArrayJSON = String(data: emptyArrayJSONData, encoding: .utf8)!
     
-    private let invalidTypeJSONData = #"{"testValue": 12345}"#.data(using: .utf8)!
+    private let invalidTypeJSONData = #"{"testValue":12345}"#.data(using: .utf8)!
     
     // MARK: Non Nullable
     private struct ArrayNonNullable: Codable {

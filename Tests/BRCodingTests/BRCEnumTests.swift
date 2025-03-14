@@ -35,7 +35,7 @@ final class BRCEnumTests: XCTestCase {
         @BRCEnumNonNullable private(set) var testValue: TestEnum
     }
 
-    func testNonNullable() {
+    func testEnumNonNullableWithValidCase() {
         if let validCaseTest = try? decoder.decode(EnumNonNullable.self, from: validCaseJSONData) {
             XCTAssert(validCaseTest.testValue == validCase, "Valid case decoded incorrectly")
             
@@ -53,7 +53,9 @@ final class BRCEnumTests: XCTestCase {
         } else {
             XCTFail("Valid case failed to decode")
         }
+    }
         
+    func testEnumNonNullableWithInvalidCase() {
         if let invalidCaseTest = try? decoder.decode(EnumNonNullable.self, from: invalidCaseJSONJData) {
             XCTAssert(invalidCaseTest.testValue == TestEnum.fallbackCase, "Invalid case decoded incorrectly")
             
@@ -71,19 +73,25 @@ final class BRCEnumTests: XCTestCase {
         } else {
             XCTFail("Invalid case failed to decode")
         }
-        
+    }
+    
+    func testEnumNonNullableWithInvalidType() {
         if let invalidTypeTest = try? decoder.decode(EnumNonNullable.self, from: invalidTypeJSONData) {
             XCTAssert(invalidTypeTest.testValue == TestEnum.fallbackCase, "Invalid type decoded incorrectly")
         } else {
             XCTFail("Invalid type failed to decode")
         }
-        
+    }
+    
+    func testEnumNonNullableWithNullLiteral() {
         if let nullLiteralTest = try? decoder.decode(EnumNonNullable.self, from: BRCodingTests.nullLiteralJSONData) {
             XCTAssert(nullLiteralTest.testValue == TestEnum.fallbackCase, "Null literal decoded incorrectly")
         } else {
             XCTFail("Null literal failed to decode")
         }
-        
+    }
+    
+    func testEnumNonNullableWithMissingField() {
         if let missingFieldTest = try? decoder.decode(EnumNonNullable.self, from: BRCodingTests.missingFieldJSONData) {
             XCTAssert(missingFieldTest.testValue == TestEnum.fallbackCase, "Missing field decoded incorrectly")
         } else {
