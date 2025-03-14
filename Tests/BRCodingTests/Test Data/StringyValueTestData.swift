@@ -13,5 +13,8 @@ struct StringyValueTestData {
     static let testInt: Int = 119
     static let intJSON = #"{"testValue":\#(testInt)}"#
     static let intJSONData = intJSON.data(using: .utf8)!
+    
+    static let stringyIntJSONData = #"{"testValue":"\#(testInt)"}"#.data(using: .utf8)!
+    
     static let invalidTypeJSONData = #"{"testValue":"Invalid String"}"#.data(using: .utf8)!
 }

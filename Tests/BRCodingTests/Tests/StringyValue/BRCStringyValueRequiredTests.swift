@@ -13,40 +13,60 @@ final class BRCStringyValueRequiredTests: XCTestCase {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
-    // MARK: Required
-    private struct ReuiredValue: Codable {
+    // MARK: Test Type
+    private struct TestCodable: Codable {
         @BRCStringyValueRequired private(set) var testValue: Int
     }
     
-    func testRequired() {
-        if let intTest = try? decoder.decode(ReuiredValue.self, from: StringyValueTestData.intJSONData) {
-            XCTAssert(intTest.testValue == StringyValueTestData.testInt, "Int decoded incorrectly")
-            
-            if let encoded = try? encoder.encode(intTest) {
-                XCTAssert(String(data: encoded, encoding: .utf8)! == StringyValueTestData.intJSON, "Encoding int produced bad JSON")
-                
-                if let decoded = try? decoder.decode(ReuiredValue.self, from: encoded) {
-                    XCTAssert(decoded.testValue == StringyValueTestData.testInt, "Encoded int decoded incorrectly")
-                } else {
-                    XCTFail("Failed to decode encoded int")
-                }
-            } else {
-                XCTFail("Failed to encode int")
-            }
+    // MARK: Decoding Tests
+    func testIntDecodesCorrectly() {
+        if let test = try? decoder.decode(TestCodable.self, from: StringyValueTestData.intJSONData) {
+            XCTAssert(test.testValue == StringyValueTestData.testInt, "Int decoded incorrectly")
         } else {
             XCTFail("Int failed to decode")
         }
-        
-        if let _ = try? decoder.decode(ReuiredValue.self, from: GeneralTestData.nullLiteralJSONData) {
+    }
+    
+    func testStringyIntDecodesCorrectly() {
+        if let test = try? decoder.decode(TestCodable.self, from: StringyValueTestData.stringyIntJSONData) {
+            XCTAssert(test.testValue == StringyValueTestData.testInt, "Stringy int decoded incorrectly")
+        } else {
+            XCTFail("Stringy int failed to decode")
+        }
+    }
+    
+    func testNullLiteralDoesNotDecode() {
+        if let _ = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
             XCTFail("Null literal decoded, should have failed")
         }
-        
-        if let _ = try? decoder.decode(ReuiredValue.self, from: StringyValueTestData.invalidTypeJSONData) {
+    }
+    
+    func testInvalidTypeDoesNotDecode() {
+        if let _ = try? decoder.decode(TestCodable.self, from: StringyValueTestData.invalidTypeJSONData) {
             XCTFail("Invalid type decoded, should have failed")
         }
-        
-        if let _ = try? decoder.decode(ReuiredValue.self, from: GeneralTestData.missingFieldJSONData) {
+    }
+    
+    func testMissingFieldDoesNotDecode() {
+        if let _ = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
             XCTFail("Missing field decoded, should have failed")
+        }
+    }
+    
+    // MARK: Encoding Tests
+    func testIntEncodesCorrectly() {
+        let test = (try? decoder.decode(TestCodable.self, from: StringyValueTestData.intJSONData))!
+        
+        if let encoded = try? encoder.encode(test) {
+            XCTAssert(String(data: encoded, encoding: .utf8)! == StringyValueTestData.intJSON, "Int encoding produced bad JSON")
+            
+            if let decoded = try? decoder.decode(TestCodable.self, from: encoded) {
+                XCTAssert(decoded.testValue == StringyValueTestData.testInt, "Int encoded then decoded incorrectly")
+            } else {
+                XCTFail("Int encoded then failed to decode")
+            }
+        } else {
+            XCTFail("Int failed to encode")
         }
     }
 }
