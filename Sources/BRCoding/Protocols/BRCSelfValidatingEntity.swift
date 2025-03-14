@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol BRCSelfValidatingEntity: Codable {
+public protocol BRCSelfValidatingEntity: Codable {
     var isValid: Bool { get }
 }

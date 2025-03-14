@@ -36,7 +36,7 @@ public struct BRCSetNonNullable<V: Codable & Hashable>: Codable {
     }
 }
 
-extension KeyedDecodingContainer {
+public extension KeyedDecodingContainer {
     func decode<T>(_ type: BRCSetNonNullable<T>.Type, forKey key: Self.Key) throws -> BRCSetNonNullable<T> where T : Decodable {
         try decodeIfPresent(type, forKey: key) ?? BRCSetNonNullable<T>(wrappedValue: [])
     }
