@@ -25,19 +25,19 @@ final class BRCBoolNonNullableDefaultTrueTests: XCTestCase {
             XCTFail("Failed to decode True Literal")
         }
                 
-        if let trueNumericalTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueIntJSON) {
+        if let trueNumericalTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueIntJSONData) {
             XCTAssert(trueNumericalTestObject.testValue == true, "True Numerical decoded incorrectly")
         } else {
             XCTFail("Failed to decode True Numerical")
         }
         
-        if let trueStringyBoolTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueStringyBoolJSON) {
+        if let trueStringyBoolTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueStringyBoolJSONData) {
             XCTAssert(trueStringyBoolTestObject.testValue == true, "True Stringy Bool decoded incorrectly")
         } else {
             XCTFail("Failed to decode True Stringy Bool")
         }
         
-        if let truStringyIntTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueStringyIntJSON) {
+        if let truStringyIntTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueStringyIntJSONData) {
             XCTAssert(truStringyIntTestObject.testValue == true, "True Stringy Int decoded incorrectly")
         } else {
             XCTFail("Failed to decode True Stringy Int")
@@ -49,19 +49,19 @@ final class BRCBoolNonNullableDefaultTrueTests: XCTestCase {
             XCTFail("Failed to decode False Literal")
         }
                 
-        if let falseNumericalTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseIntJSON) {
+        if let falseNumericalTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseIntJSONData) {
             XCTAssert(falseNumericalTestObject.testValue == false, "False Numerical decoded incorrectly")
         } else {
             XCTFail("Failed to decode False Numerical")
         }
         
-        if let falseStringyBoolTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseStringyBoolJSON) {
+        if let falseStringyBoolTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseStringyBoolJSONData) {
             XCTAssert(falseStringyBoolTestObject.testValue == false, "False Stringy Bool decoded incorrectly")
         } else {
             XCTFail("Failed to decode False Stringy Bool")
         }
         
-        if let falseStringyIntTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseStringyIntJSON) {
+        if let falseStringyIntTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseStringyIntJSONData) {
             XCTAssert(falseStringyIntTestObject.testValue == false, "False Stringy Int decoded incorrectly")
         } else {
             XCTFail("Failed to decode False Stringy Int")
@@ -83,19 +83,19 @@ final class BRCBoolNonNullableDefaultTrueTests: XCTestCase {
     }
     
     func testDecodeDefaultTrueWithInvalidValue() {
-        if let invalidStringTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.invalidStringJSON) {
+        if let invalidStringTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.invalidStringJSONData) {
             XCTAssert(invalidStringTestObject.testValue == true, "Failed to apply default value for invalid string")
         } else {
             XCTFail("Failed to decode with String Value")
         }
         
-        if let invalidIntTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.invalidIntJSON) {
+        if let invalidIntTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.invalidIntJSONData) {
             XCTAssert(invalidIntTestObject.testValue == true, "Failed to apply default value for invalid int")
         } else {
             XCTFail("Failed to decode with Invalid Int")
         }
                 
-        if let invalidTypeTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.invalidTypeJSON) {
+        if let invalidTypeTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.invalidTypeJSONData) {
             XCTAssert(invalidTypeTestObject.testValue == true, "Failed to apply default value for invalid type")
         } else {
             XCTFail("Failed to decode with Invalid Type")

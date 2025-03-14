@@ -12,15 +12,15 @@ struct BoolTestData {
     
     static let trueLiteralJSON = #"{"testValue":true}"#
     static let trueLiteralJSONData = trueLiteralJSON.data(using: .utf8)!
-    static let trueIntJSON = #"{"testValue":1}"#.data(using: .utf8)!
-    static let trueStringyBoolJSON = #"{"testValue":"true"}"#.data(using: .utf8)!
-    static let trueStringyIntJSON = #"{"testValue":"1"}"#.data(using: .utf8)!
+    static let trueIntJSONData = #"{"testValue":1}"#.data(using: .utf8)!
+    static let trueStringyBoolJSONData = #"{"testValue":"true"}"#.data(using: .utf8)!
+    static let trueStringyIntJSONData = #"{"testValue":"1"}"#.data(using: .utf8)!
     static let falseLiteralJSON = #"{"testValue":false}"#
     static let falseLiteralJSONData = falseLiteralJSON.data(using: .utf8)!
-    static let falseIntJSON = #"{"testValue":0}"#.data(using: .utf8)!
-    static let falseStringyBoolJSON = #"{"testValue":"false"}"#.data(using: .utf8)!
-    static let falseStringyIntJSON = #"{"testValue":"0"}"#.data(using: .utf8)!
-    static let invalidStringJSON = #"{"testValue":"Sheboygan, WI"}"#.data(using: .utf8)!
-    static let invalidIntJSON = #"{"testValue":19}"#.data(using: .utf8)!
-    static let invalidTypeJSON = #"{"testValue":19.19}"#.data(using: .utf8)!
+    static let falseIntJSONData = #"{"testValue":0}"#.data(using: .utf8)!
+    static let falseStringyBoolJSONData = #"{"testValue":"false"}"#.data(using: .utf8)!
+    static let falseStringyIntJSONData = #"{"testValue":"0"}"#.data(using: .utf8)!
+    static let invalidStringJSONData = #"{"testValue":"Sheboygan, WI"}"#.data(using: .utf8)!
+    static let invalidIntJSONData = #"{"testValue":19}"#.data(using: .utf8)!
+    static let invalidTypeJSONData = #"{"testValue":19.19}"#.data(using: .utf8)!
 }

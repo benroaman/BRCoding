@@ -31,7 +31,7 @@ final class BRCDateISO8601OptionalNullOmittingTests: XCTestCase {
     
     func testNullLiteralDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
-            XCTAssert(test.testValue == nil, "Null literal decoded incorrectly")
+            XCTAssertNil(test.testValue, "Null literal decoded incorrectly")
         } else {
             XCTFail("Null literal failed to decode")
         }
@@ -39,7 +39,7 @@ final class BRCDateISO8601OptionalNullOmittingTests: XCTestCase {
     
     func testMissingFieldDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
-            XCTAssert(test.testValue == nil, "Missing field decoded incorrectly")
+            XCTAssertNil(test.testValue, "Missing field decoded incorrectly")
         } else {
             XCTFail("Missing field failed to decode")
         }
@@ -47,7 +47,7 @@ final class BRCDateISO8601OptionalNullOmittingTests: XCTestCase {
     
     func testInvalidDateDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: DateTestData.invalidDateJSONData) {
-            XCTAssert(test.testValue == nil, "Invalid date decoded incorrectly")
+            XCTAssertNil(test.testValue, "Invalid date decoded incorrectly")
         } else {
             XCTFail("Invalid date failed to decode")
         }
@@ -55,7 +55,7 @@ final class BRCDateISO8601OptionalNullOmittingTests: XCTestCase {
     
     func testInvalidTypeDecodesToNil() {
         if let test = try? decoder.decode(TestCodable.self, from: DateTestData.invalidTypeJSONData) {
-            XCTAssert(test.testValue == nil, "Invalid type decoded incorrectly")
+            XCTAssertNil(test.testValue, "Invalid type decoded incorrectly")
         } else {
             XCTFail("Invalid type failed to decode")
         }

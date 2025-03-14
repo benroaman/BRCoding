@@ -37,7 +37,7 @@ final class BRCArrayNonNullableValidatedTests: XCTestCase {
     
     func testCompletelyInvalidArrayDecodesToEmptyArray() {
         if let test = try? decoder.decode(TestCodable.self, from: ArrayTestData.completelyInvalidArrayJSONData) {
-            XCTAssert(test.testValue == ArrayTestData.emptyArray, "Completely invalid array decoded incorrectly")
+            XCTAssert(test.testValue.isEmpty, "Completely invalid array decoded incorrectly")
         } else {
             XCTFail("Completely invalid array failed to decode")
         }
@@ -45,7 +45,7 @@ final class BRCArrayNonNullableValidatedTests: XCTestCase {
     
     func testNullLiteralDecodesToEmptyArray() {
         if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
-            XCTAssert(test.testValue == ArrayTestData.emptyArray, "Null literal decoded incorrectly")
+            XCTAssert(test.testValue.isEmpty, "Null literal decoded incorrectly")
         } else {
             XCTFail("Null literal failed to decode")
         }
@@ -53,7 +53,7 @@ final class BRCArrayNonNullableValidatedTests: XCTestCase {
     
     func testInvalidTypeDecodesToEmptyArray() {
         if let test = try? decoder.decode(TestCodable.self, from: ArrayTestData.invalidTypeJSONData) {
-            XCTAssert(test.testValue == ArrayTestData.emptyArray, "Invalid type decoded incorrectly")
+            XCTAssert(test.testValue.isEmpty, "Invalid type decoded incorrectly")
         } else {
             XCTFail("Invalid type failed to decode")
         }
@@ -61,7 +61,7 @@ final class BRCArrayNonNullableValidatedTests: XCTestCase {
     
     func testMissingFieldDecodesToEmptyArray() {
         if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
-            XCTAssert(test.testValue == ArrayTestData.emptyArray, "Missing field decoded incorrectly")
+            XCTAssert(test.testValue.isEmpty, "Missing field decoded incorrectly")
         } else {
             XCTFail("Missing field failed to decode")
         }

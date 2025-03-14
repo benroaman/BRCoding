@@ -28,7 +28,7 @@ final class BRCBoolRequiredTests: XCTestCase {
     }
     
     func testTrueIntDecodesCorrectly() {
-        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.trueIntJSON) {
+        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.trueIntJSONData) {
             XCTAssertTrue(test.testValue, "True Numerical decoded incorrectly")
         } else {
             XCTFail("True numerical failed to decode")
@@ -36,7 +36,7 @@ final class BRCBoolRequiredTests: XCTestCase {
     }
     
     func testTrueStringyBoolDecodesCorrectly() {
-        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.trueStringyBoolJSON) {
+        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.trueStringyBoolJSONData) {
             XCTAssertTrue(test.testValue, "True Stringy Bool decoded incorrectly")
         } else {
             XCTFail("True stringy bool failed to decode")
@@ -44,7 +44,7 @@ final class BRCBoolRequiredTests: XCTestCase {
     }
     
     func testTrueStringyIntDecodesCorrectly() {
-        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.trueStringyIntJSON) {
+        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.trueStringyIntJSONData) {
             XCTAssertTrue(test.testValue, "True Stringy Int decoded incorrectly")
         } else {
             XCTFail("True stringy int failed to decode")
@@ -60,7 +60,7 @@ final class BRCBoolRequiredTests: XCTestCase {
     }
     
     func testFalseIntDecodesCorrectly() {
-        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.falseIntJSON) {
+        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.falseIntJSONData) {
             XCTAssertFalse(test.testValue, "False Numerical decoded incorrectly")
         } else {
             XCTFail("False int failed to decode")
@@ -68,7 +68,7 @@ final class BRCBoolRequiredTests: XCTestCase {
     }
     
     func testFalseStringyBoolDecodesCorrectly() {
-        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.falseStringyBoolJSON) {
+        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.falseStringyBoolJSONData) {
             XCTAssertFalse(test.testValue, "False Stringy Bool decoded incorrectly")
         } else {
             XCTFail("False stringy bool failed to decode")
@@ -76,7 +76,7 @@ final class BRCBoolRequiredTests: XCTestCase {
     }
     
     func testFalseStringyIntDecodesCorrectly() {
-        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.falseStringyIntJSON) {
+        if let test = try? decoder.decode(TestCodable.self, from: BoolTestData.falseStringyIntJSONData) {
             XCTAssertFalse(test.testValue, "False Stringy Int decoded incorrectly")
         } else {
             XCTFail("False stringy int failed to decode")
@@ -92,15 +92,15 @@ final class BRCBoolRequiredTests: XCTestCase {
     }
     
     func testInvalidStringDoesNotDecode() {
-        XCTAssertNil(try? decoder.decode(TestCodable.self, from: BoolTestData.invalidStringJSON), "Invalid string should cause decode failure")
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: BoolTestData.invalidStringJSONData), "Invalid string should cause decode failure")
     }
     
     func testInvalidIntDoesNotDecode() {
-        XCTAssertNil(try? decoder.decode(TestCodable.self, from: BoolTestData.invalidIntJSON), "Invalid int should cause decode failure")
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: BoolTestData.invalidIntJSONData), "Invalid int should cause decode failure")
     }
     
     func testInvalidTypeDoesNotDecode() {
-        XCTAssertNil(try? decoder.decode(TestCodable.self, from: BoolTestData.invalidTypeJSON), "Invalid type should cause decode failure")
+        XCTAssertNil(try? decoder.decode(TestCodable.self, from: BoolTestData.invalidTypeJSONData), "Invalid type should cause decode failure")
     }
     
     // MARK: Encoding Tests

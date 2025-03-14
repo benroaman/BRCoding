@@ -31,7 +31,7 @@ final class BRCArrayNonNullableTests: XCTestCase {
     
     func testNullLiteralDecodesToEmptyArray() {
         if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.nullLiteralJSONData) {
-            XCTAssert(test.testValue == ArrayTestData.emptyArray, "Null literal decoded incorrectly")
+            XCTAssert(test.testValue.isEmpty, "Null literal decoded incorrectly")
         } else {
             XCTFail("Null literal failed to decode")
         }
@@ -39,7 +39,7 @@ final class BRCArrayNonNullableTests: XCTestCase {
     
     func testInvalidTypeDecodesToEmptyArray() {
         if let test = try? decoder.decode(TestCodable.self, from: ArrayTestData.invalidTypeJSONData) {
-            XCTAssert(test.testValue == ArrayTestData.emptyArray, "Invalid Type decoded incorrectly")
+            XCTAssert(test.testValue.isEmpty, "Invalid Type decoded incorrectly")
         } else {
             XCTFail("Invalid type failed to decode")
         }
@@ -47,7 +47,7 @@ final class BRCArrayNonNullableTests: XCTestCase {
     
     func testMissingFieldDecodesToEmptyArray() {
         if let test = try? decoder.decode(TestCodable.self, from: GeneralTestData.missingFieldJSONData) {
-            XCTAssert(test.testValue == ArrayTestData.emptyArray, "Missing field decoded incorrectly")
+            XCTAssert(test.testValue.isEmpty, "Missing field decoded incorrectly")
         } else {
             XCTFail("Missing field failed to decode")
         }
