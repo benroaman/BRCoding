@@ -10,12 +10,14 @@ import Foundation
 struct BoolTestData {
     private init() { }
     
-    static let trueLiteralJSON = #"{"testValue":true}"#.data(using: .utf8)!
-    static let trueNumericalJSON = #"{"testValue":1}"#.data(using: .utf8)!
+    static let trueLiteralJSON = #"{"testValue":true}"#
+    static let trueLiteralJSONData = trueLiteralJSON.data(using: .utf8)!
+    static let trueIntJSON = #"{"testValue":1}"#.data(using: .utf8)!
     static let trueStringyBoolJSON = #"{"testValue":"true"}"#.data(using: .utf8)!
     static let trueStringyIntJSON = #"{"testValue":"1"}"#.data(using: .utf8)!
-    static let falseLiteralJSON = #"{"testValue":false}"#.data(using: .utf8)!
-    static let falseNumericalJSON = #"{"testValue":0}"#.data(using: .utf8)!
+    static let falseLiteralJSON = #"{"testValue":false}"#
+    static let falseLiteralJSONData = falseLiteralJSON.data(using: .utf8)!
+    static let falseIntJSON = #"{"testValue":0}"#.data(using: .utf8)!
     static let falseStringyBoolJSON = #"{"testValue":"false"}"#.data(using: .utf8)!
     static let falseStringyIntJSON = #"{"testValue":"0"}"#.data(using: .utf8)!
     static let invalidStringJSON = #"{"testValue":"Sheboygan, WI"}"#.data(using: .utf8)!

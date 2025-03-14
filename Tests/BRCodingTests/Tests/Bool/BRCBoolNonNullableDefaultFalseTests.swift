@@ -19,13 +19,13 @@ final class BRCBoolNonNullableDefaultFalseTests: XCTestCase {
     }
     
     func testDecodeDefaultFalseWithValuePresent() throws {
-        if let trueLiteralTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueLiteralJSON) {
+        if let trueLiteralTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueLiteralJSONData) {
             XCTAssert(trueLiteralTestObject.testValue == true, "True Literal decoded incorrectly")
         } else {
             XCTFail("Failed to decode True Literal")
         }
            
-        if let trueNumericalTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueNumericalJSON) {
+        if let trueNumericalTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.trueIntJSON) {
             XCTAssert(trueNumericalTestObject.testValue == true, "True Numerical decoded incorrectly")
         } else {
             XCTFail("Failed to decode True Numerical")
@@ -43,13 +43,13 @@ final class BRCBoolNonNullableDefaultFalseTests: XCTestCase {
             XCTFail("Failed to decode True Stringy Int")
         }
         
-        if let falseLiteralTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseLiteralJSON) {
+        if let falseLiteralTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseLiteralJSONData) {
             XCTAssert(falseLiteralTestObject.testValue == false, "False Literal decoded incorrectly")
         } else {
             XCTFail("Failed to decode False Literal")
         }
                 
-        if let falseNumericalTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseNumericalJSON) {
+        if let falseNumericalTestObject = try? decoder.decode(TestCodable.self, from: BoolTestData.falseIntJSON) {
             XCTAssert(falseNumericalTestObject.testValue == false, "False Numerical decoded incorrectly")
         } else {
             XCTFail("Failed to decode False Numerical")
