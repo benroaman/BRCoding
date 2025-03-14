@@ -104,14 +104,14 @@ final class BRCBoolRequiredTests: XCTestCase {
     }
     
     // MARK: Encoding Tests
-    func testEncodingTrue() {
+    func testTrueEncodesCorrectly() {
         let test = TestCodable(testValue: true)
         
         if let encoded = try? encoder.encode(test) {
             XCTAssert(String(data: encoded, encoding: .utf8)! == BoolTestData.trueLiteralJSON, "True encoding produced incorrect JSON")
             
             if let decoded = try? decoder.decode(TestCodable.self, from: encoded) {
-                XCTAssertTrue(decoded.testValue, "True encoded then decoded with epoch mismatch")
+                XCTAssertTrue(decoded.testValue, "True encoded then decoded incorrectly")
             } else {
                 XCTFail("True encoded then failed to decode")
             }
@@ -120,14 +120,14 @@ final class BRCBoolRequiredTests: XCTestCase {
         }
     }
     
-    func testEncodingFalse() {
+    func testFalseEncodesCorrectly() {
         let test = TestCodable(testValue: false)
         
         if let encoded = try? encoder.encode(test) {
             XCTAssert(String(data: encoded, encoding: .utf8)! == BoolTestData.falseLiteralJSON, "False encoding produced incorrect JSON")
             
             if let decoded = try? decoder.decode(TestCodable.self, from: encoded) {
-                XCTAssertFalse(decoded.testValue, "False encoded then decoded with epoch mismatch")
+                XCTAssertFalse(decoded.testValue, "False encoded then decoded incorrectly")
             } else {
                 XCTFail("False encoded then failed to decode")
             }
