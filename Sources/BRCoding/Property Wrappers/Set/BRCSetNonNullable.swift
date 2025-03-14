@@ -1,13 +1,12 @@
 //
-//  BRCSet.swift
-//  
+//  BRCSetNonNullable.swift
+//
 //
 //  Created by Ben Roaman on 3/10/25.
 //
 
 import Foundation
 
-// MARK: Non Nullable
 /// Wraps a `Set`. If the value is absent, invalid, `null`, or otherwise fails to decode, defaults to `[]`.
 /// - If decoding fails, will not throw an error
 /// - Input redundancies are automatically removed, e.g. `[1, 1, 2, 2]` becomes `[1, 2]`

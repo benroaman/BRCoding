@@ -1,5 +1,5 @@
 //
-//  BRCEnum.swift
+//  BRCEnumNonNullable.swift
 //
 //
 //  Created by Ben Roaman on 3/10/25.
@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: Non Nullable
 /// Wraps an `enum` that conforms to `BRCEnumWithFallback`. If the value is absent, invalid, `null`, or otherwise fails to decode, defaults to the `fallbackCase` defined by `V`.
 /// - If decoding fails, will not throw an error
 /// - EX: `@BRCEnumNonNullable private(set) var someEnum: SomeEnum`
