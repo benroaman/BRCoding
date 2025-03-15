@@ -1,21 +1,21 @@
 //
-//  BRCSetNonNullableTests.swift
+//  BRCSetNonNullableEmptyOmittingTests.swift
 //
 //
-//  Created by Ben Roaman on 3/14/25.
+//  Created by Ben Roaman on 3/15/25.
 //
 
 import XCTest
 @testable import BRCoding
 
-final class BRCSetNonNullableTests: XCTestCase {
+final class BRCSetNonNullableEmptyOmittingTests: XCTestCase {
     // MARK: Coders
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     
     // MARK: Test Type
     private struct TestCodable: Codable {
-        @BRCSetNonNullable private(set) var testValue: Set<Int>
+        @BRCSetNonNullableEmptyOmitting private(set) var testValue: Set<Int>
     }
     
     // MARK: Decoding Tests
@@ -78,9 +78,10 @@ final class BRCSetNonNullableTests: XCTestCase {
         let test = TestCodable(testValue: [])
         
         if let encoded = try? encoder.encode(test) {
-            XCTAssert(String(data: encoded, encoding: .utf8)! == SetTestData.emptySetJSON, "Empty set encoding produced incorrect JSON")
+            XCTAssert(String(data: encoded, encoding: .utf8)! == GeneralTestData.missingFieldJSON, "Empty set should be omitted from encoding")
         } else {
             XCTFail("Set failed to encode")
         }
     }
 }
+
