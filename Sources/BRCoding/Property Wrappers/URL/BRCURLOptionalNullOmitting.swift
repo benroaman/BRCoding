@@ -26,11 +26,6 @@ public struct BRCURLOptionalNullOmitting: Codable {
     public init(wrappedValue: URL?) {
         self.wrappedValue = wrappedValue
     }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(wrappedValue?.absoluteString)
-    }
 }
 
 public extension KeyedDecodingContainer {
