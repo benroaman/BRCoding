@@ -12,10 +12,10 @@ import Foundation
 /// - If any value within the decoding array fails to decode, or it's `isValid` evaluates to `false`, it is omitted, and decoding will continue for the rest of the content of the array.
 /// - EX: `@BRCArrayValidated private(set) var someArray: [SelfValidatingEntity]`
 @propertyWrapper
-struct BRCArrayNonNullableValidated<T: BRCSelfValidatingEntity>: Codable {
-    var wrappedValue: [T]
+public struct BRCArrayNonNullableValidated<T: BRCSelfValidatingEntity>: Codable {
+    public var wrappedValue: [T]
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         guard var container = try? decoder.unkeyedContainer() else {
             self.wrappedValue = []
             return
@@ -38,11 +38,11 @@ struct BRCArrayNonNullableValidated<T: BRCSelfValidatingEntity>: Codable {
         self.wrappedValue = elements
     }
     
-    init(wrappedValue: [T]) {
+    public init(wrappedValue: [T]) {
         self.wrappedValue = wrappedValue
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(wrappedValue)
     }
@@ -69,7 +69,7 @@ extension BRCArrayNonNullableValidated {
     }
 }
 
-extension KeyedDecodingContainer {
+public extension KeyedDecodingContainer {
     func decode<T>(_ type: BRCArrayNonNullableValidated<T>.Type, forKey key: Self.Key) throws -> BRCArrayNonNullableValidated<T> where T : Decodable {
         return try decodeIfPresent(type, forKey: key) ?? BRCArrayNonNullableValidated<T>(wrappedValue: [])
     }
