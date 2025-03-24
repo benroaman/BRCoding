@@ -52,4 +52,16 @@ struct ArrayTestData {
     static let emptyArrayJSON = String(data: emptyArrayJSONData, encoding: .utf8)!
     
     static let invalidTypeJSONData = #"{"testValue":12345}"#.data(using: .utf8)!
+    
+    static let completelyDecodableArray: [Int] = [1, 2, 3, 5, 7, 11]
+    static let completelyDecodableArrayJSONData = (try? JSONEncoder().encode(["testValue": completelyDecodableArray]))!
+    static let completelyDecodableArrayJSON = String(data: completelyDecodableArrayJSONData, encoding: .utf8)!
+    
+    static let completelyUndecodableArray: [String] = ["1", "2", "3", "5", "7", "11"]
+    static let completelyUndecodableArrayJSONData = (try? JSONEncoder().encode(["testValue": completelyUndecodableArray]))!
+    static let completelyUndecodableArrayJSON = String(data: completelyUndecodableArrayJSONData, encoding: .utf8)!
+    
+    
+    static let partiallyDecodableArrayJSON = #"{"testValue": [1, "1", 2, "2", 3, "3", 5, "5", 7, "7", 11, "11"]}"#
+    static let partiallyDecodableArrayJSONData = partiallyDecodableArrayJSON.data(using: .utf8)!
 }
